@@ -7,6 +7,8 @@
       <updateRate>1000.0</updateRate>
       <robotParam>robot_description</robotParam>
     </plugin>
+
+    <turnGravityOff>true</turnGravityOff>
   </gazebo>
 
 	<include filename="$(find jaco_description)/urdf/gazebo/jaco.gazebo.xacro" />
@@ -17,12 +19,6 @@
 	</material>
 
 
-	<link name="world"/>
-	<joint name="base_block_joint" type="fixed">
-		<parent link="world" />
-		<origin xyz="0 0 1" rpy="0 0 0" />
-		<child link="jaco_base_link" />
-	</joint> 
 
 	<!-- The base joint & link -->
 
