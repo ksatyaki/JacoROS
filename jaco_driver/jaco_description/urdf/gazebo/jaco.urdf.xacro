@@ -1,15 +1,20 @@
 <?xml version="1.0"?>
-<robot name="jaco">
+<robot name="jaco" 
+  xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <gazebo>
-    <plugin name="gazebo_ros_controller_manager" filename="libgazebo_ros_controller_manager.so" >
+ <xacro:property name="inertia" value="1" />
+  <xacro:property name="finger_inertia" value="1" />
+
+	<gazebo>
+
+    <plugin name="gazebo_ros_controller_manager" filename="libgazebo_ros_controller_manager.so">
       <alwaysOn>true</alwaysOn>
-      <updateRate>1000.0</updateRate>
-      <robotParam>robot_description</robotParam>
-    </plugin>
+		<updateRate>1000.0</updateRate>
+		<robotParam>robot_description</robotParam>
 
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
+    </plugin>
+	</gazebo>
+
 
 	<include filename="$(find jaco_description)/urdf/gazebo/jaco.gazebo.xacro" />
 	<include filename="$(find jaco_description)/urdf/gazebo/jaco.transmissions.xacro" />
@@ -18,16 +23,25 @@
 	<color rgba="0.2 0.2 0.9 1.0"/>
 	</material>
 
+	<!--
+	<link name="world"/>
+	<joint name="base_block_joint" type="fixed">
+		<parent link="world" />
+		<origin xyz="0 0 1" rpy="0 0 0" />
+		<child link="jaco_base_link" />
+	</joint> 
+ -->
 
+  
 
 	<!-- The base joint & link -->
 
 	<link name="jaco_base_link">
 		<inertial>
-			<mass value="6" />
+			<mass value="1" />
 			<!--origin xyz="0 0 -0.0525" rpy="0 0 0"/-->
           		<origin xyz="0 0 0.0" rpy="0 0 0"/>
-			<inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+			<inertia ixx="${inertia}"  ixy="0"  ixz="0" iyy="${inertia}" iyz="0" izz="${inertia}" />
 		</inertial> 
 		<visual>
 			<material name="JacoGrey" />
@@ -58,13 +72,13 @@
 		<axis xyz="0 0 -1" rpy="0 0 0"/>
 		<parent link="jaco_base_link"/>
 		<child link="jaco_link_1"/>
-		<limit lower="-3.1415926535897931" upper="3.1415926535897931" effort="1" velocity="2.0"/>
+		<limit lower="-3.1415926535897931" upper="3.1415926535897931" effort="30" velocity="5"/>
 	</joint>
 	<link name="jaco_link_1">
 		<inertial>
-			<mass value="4.5"/>
+			<mass value="1" />
 
-			<inertia ixx="100.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="100.0" />
+			<inertia ixx="${inertia}"  ixy="0"  ixz="0" iyy="${inertia}" iyz="0" izz="${inertia}" />
 			<origin/>
 		</inertial>
 		<visual>
@@ -95,12 +109,12 @@
 		<axis xyz="0 0 1"/>
 		<parent link="jaco_link_1"/>
 		<child link="jaco_link_2"/>
-		<limit lower="-3.6651914291881" upper="0.57595865315813" effort="1" velocity="3.1415926535897931"/>
+		<limit lower="-3.6651914291881" upper="0.57595865315813" effort="30" velocity="5"/>
 	</joint>
 	<link name="jaco_link_2">
 		<inertial>
-			<mass value="3.8"/>
-			<inertia ixx="100.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="100.0" />
+			<mass value="1" />
+			<inertia ixx="${inertia}"  ixy="0"  ixz="0" iyy="${inertia}" iyz="0" izz="${inertia}" />
 			<origin/>
 		</inertial>
 		<visual>
@@ -131,12 +145,12 @@
 		<axis xyz="0 0 -1"/>
 		<parent link="jaco_link_2"/>
 		<child link="jaco_link_3"/>
-		<limit lower="-1.221730476396" upper="4.2935099599061" effort="1" velocity="3.1415926535897931"/>
+		<limit lower="-1.221730476396" upper="4.2935099599061" effort="30" velocity="5"/>
 	</joint>
 	<link name="jaco_link_3">
 		<inertial>
-			<mass value="2"/>
-			<inertia ixx="100.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="100.0" />
+			<mass value="1" />
+			<inertia ixx="${inertia}"  ixy="0"  ixz="0" iyy="${inertia}" iyz="0" izz="${inertia}" />
 			<origin/>
 		</inertial>
 		<visual>
@@ -166,12 +180,12 @@
 		<axis xyz="0 0 -1"/>
 		<parent link="jaco_link_3"/>
 		<child link="jaco_link_4"/>
-		<limit lower="-3.1415926535897931" upper="3.1415926535897931" effort="1" velocity="2.0"/>
+		<limit lower="-3.1415926535897931" upper="3.1415926535897931" effort="30" velocity="5"/>
 	</joint>
 	<link name="jaco_link_4">
 		<inertial>
-			<mass value="1.5"/>
-			<inertia ixx="100.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="100.0" />
+			<mass value="1" />
+			<inertia ixx="${inertia}"  ixy="0"  ixz="0" iyy="${inertia}" iyz="0" izz="${inertia}" />
 			<origin/>
 		</inertial>
 		<visual>
@@ -202,12 +216,12 @@
 		<axis xyz="0 0 -1"/>
 		<parent link="jaco_link_4"/>
 		<child link="jaco_link_5"/>
-		<limit lower="-3.1415926535897931" upper="3.1415926535897931" effort="1" velocity="2.0"/>
+		<limit lower="-3.1415926535897931" upper="3.1415926535897931" effort="30" velocity="5"/>
 	</joint>
 	<link name="jaco_link_5">
 		<inertial>
 			<mass value="1.0"/>
-			<inertia ixx="100.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="100.0" />
+			<inertia ixx="${inertia}"  ixy="0"  ixz="0" iyy="${inertia}" iyz="0" izz="${inertia}" />
 			<origin/>
 		</inertial>
 		<visual>
@@ -239,12 +253,12 @@
 		<axis xyz="0 0 -1"/>
 		<parent link="jaco_link_5"/>
 		<child link="jaco_link_6"/>
-		<limit lower="-3.5415926535897931" upper="3.5415926535897931" effort="1" velocity="2.0"/>
+		<limit lower="-3.5415926535897931" upper="3.5415926535897931" effort="30" velocity="5"/>
 	</joint>
 	<link name="jaco_link_6">
 		<inertial>
-			<mass value="0.8"/>
-			<inertia ixx="100.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="100.0" />
+			<mass value="0.3"/>
+			<inertia ixx="${inertia}"  ixy="0"  ixz="0" iyy="${inertia}" iyz="0" izz="${inertia}" />
 			<origin/>
 		</inertial>
 		<visual>
@@ -270,6 +284,18 @@
 		<turnGravityOff>true</turnGravityOff>
 	</gazebo>
 
+     <joint name="jaco_gripper_tool_frame_joint" type="fixed">
+      <parent link="jaco_link_6"/>
+      <child link="jaco_gripper_tool_frame" />
+      <origin xyz="0 0 0" rpy="0 ${-M_PI/2} ${M_PI/2}"/>
+    </joint>
+
+    <link name="jaco_gripper_tool_frame">
+      <!-- This is the coordinate system of the tool (this is the position
+         used in IK etc., relative to the base frame); there is no actual
+         arm part attached to this link -->
+  </link>
+
 	<!-- first finger joint & link -->
    	<joint name="jaco_finger_joint_1" type="revolute">
         <!--origin xyz="-0.036 -0.021 -0.07" rpy="0 0 0"/--> <!-- changed becuase it look funny in simulation-->
@@ -277,28 +303,36 @@
         <axis xyz="0 1 0"/>
         <parent link="jaco_link_6"/>
         <child link="jaco_finger_link_1"/>
-		<limit lower="-3.1415926535897931" upper="3.1415926535897931" effort="1" velocity="2.0"/>
+		<limit lower="-3.1415926535897931" upper="3.1415926535897931" effort="30" velocity="5"/>
       </joint>
-      <link name="jaco_finger_link_1">
+
+
+    <link name="jaco_finger_link_1">
 		<inertial>
 			<mass value="0.05"/>
-			<inertia ixx="10.0" ixy="0.0"  ixz="0.0"  iyy="10.0"  iyz="0.0"  izz="10.0" />
+			<inertia ixx="${finger_inertia}"  ixy="0"  ixz="0" iyy="${finger_inertia}" iyz="0" izz="${finger_inertia}" />
 			<origin/>
 		</inertial>
-        <visual>
+
+   <visual>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
           <geometry>
             <mesh filename="package://jaco_description/meshes/finger.dae" 
                 scale="1 1 1"/>
           </geometry>
-        </visual>
+    </visual>
+
 	<collision>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
 	<geometry>
-            <mesh filename="package://jaco_description/meshes/finger.dae" 
-                scale="1 1 1"/>  
+        <mesh filename="package://jaco_description/meshes/finger.dae" 
+                scale="1 1 1"/>
 	</geometry>
+
+
 	</collision>
+
+
       </link>
 	<gazebo reference="jaco_finger_link_1">
 		<material>Gazebo/Blue</material>
@@ -313,12 +347,12 @@
         <axis xyz="0 1 0"/>
         <parent link="jaco_link_6"/>
         <child link="jaco_finger_link_2"/>
-		<limit lower="-3.1415926535897931" upper="3.1415926535897931" effort="1" velocity="2.0"/>
+		<limit lower="-3.1415926535897931" upper="3.1415926535897931" effort="30" velocity="5"/>
       </joint>
       <link name="jaco_finger_link_2">
 		<inertial>
 			<mass value="0.05"/>
-			<inertia ixx="10.0" ixy="0.0"  ixz="0.0"  iyy="10.0"  iyz="0.0"  izz="10.0" />
+			<inertia ixx="${finger_inertia}"  ixy="0"  ixz="0" iyy="${finger_inertia}" iyz="0" izz="${finger_inertia}" />
 			<origin/>
 		</inertial>
         <visual>
@@ -351,12 +385,12 @@
         <axis xyz="0 1 0"/>
         <parent link="jaco_link_6"/>
         <child link="jaco_finger_link_3"/>
-		<limit lower="-3.1415926535897931" upper="3.1415926535897931" effort="1" velocity="2.0"/>
+		<limit lower="-3.1415926535897931" upper="3.1415926535897931" effort="30" velocity="5"/>
       </joint>
       <link name="jaco_finger_link_3">
 		<inertial>
 			<mass value="0.05"/>
-			<inertia ixx="10.0" ixy="0.0"  ixz="0.0"  iyy="10.0"  iyz="0.0"  izz="10.0" />
+			<inertia ixx="${finger_inertia}"  ixy="0"  ixz="0" iyy="${finger_inertia}" iyz="0" izz="${finger_inertia}" />
 			<origin/>
 		</inertial>
         <visual>
