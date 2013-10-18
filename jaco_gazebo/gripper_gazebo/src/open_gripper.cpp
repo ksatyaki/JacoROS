@@ -61,9 +61,9 @@ public:
     // Positions
     int ind = 0;
     goal.trajectory.points[ind].positions.resize(3);
-    goal.trajectory.points[ind].positions[0] = 0.0;
-    goal.trajectory.points[ind].positions[1] = 0.0;
-    goal.trajectory.points[ind].positions[2] = 0.0;
+    goal.trajectory.points[ind].positions[0] = -0.5;
+    goal.trajectory.points[ind].positions[1] = -0.5;
+    goal.trajectory.points[ind].positions[2] = -0.5;
 
  
     // Velocities
