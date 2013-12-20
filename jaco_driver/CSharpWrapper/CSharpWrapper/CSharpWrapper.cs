@@ -175,12 +175,12 @@ namespace CSharpWrapper
 		{
 			try
 			{
-				if (m_Arm.JacoIsReady())
-	    		{				
+				//if (m_Arm.JacoIsReady())
+	    	//	{				
 	        		//From now on, API can move the arm.	        		
 					m_Arm.ControlManager.StartControlAPI();
 								
-	    		}
+	    		//}
 			}
 			catch (Exception ex)
 			{
@@ -194,11 +194,11 @@ namespace CSharpWrapper
 		{
 			try
 			{
-				if (m_Arm.JacoIsReady())
-				{
+				//if (m_Arm.JacoIsReady())
+				//{
 					m_Arm.ControlManager.StopControlAPI();
 					
-				}
+				//}
 			}
 			catch (Exception ex)
 			{
@@ -213,11 +213,11 @@ namespace CSharpWrapper
 		{
 			try
 			{
-				if (m_Arm.JacoIsReady())
-	    		{				
+				//if (m_Arm.JacoIsReady())
+	    		//{				
 	        		// Setting the angular mode
 					m_Arm.ControlManager.SetAngularControl();									
-	    		}
+	    	//	}
 			}
 			catch (Exception ex)
 			{
@@ -255,8 +255,8 @@ namespace CSharpWrapper
 		{
 			try
 			{
-					if (m_Arm.JacoIsReady())
-    				{				
+					//if (m_Arm.JacoIsReady())
+    			//	{				
 						joint_info 			= m_Arm.ControlManager.GetPositioningAngularInfo();
 						current_info 		= m_Arm.ControlManager.GetCurrentAngularInfo();
 						pose_info 			= m_Arm.ControlManager.GetCommandCartesianInfo();
@@ -317,7 +317,7 @@ namespace CSharpWrapper
 											
 						// getting the trajectory info
 						m_State.current_traj = trajectory_info.StillInFIFO;							
-    				}					
+    				//}					
 					
 				}
 				catch (Exception ex)
@@ -353,8 +353,8 @@ namespace CSharpWrapper
 		{	
 			try
 			{
-				if (m_Arm.JacoIsReady())
-				{	
+				//if (m_Arm.JacoIsReady())
+				//{	
 					
 					// Based on Observation of actual model
 					setjointvalue.Angle[0] = (float)(( j1 * Constants.RTD) + 180.0 );
@@ -380,7 +380,7 @@ namespace CSharpWrapper
 			
 			        m_Arm.ControlManager.SendTrajectoryFunctionnality(m_JointsTrajectory); 					
 					
-				}
+				//}
 			}
 			catch (Exception ex)
 			{
@@ -585,9 +585,9 @@ namespace CSharpWrapper
 		{	
 			try
 			{
-				if (m_Arm.JacoIsReady())
+				//if (m_Arm.JacoIsReady())
 					
-				{					
+				//{					
 					
 					// Based on Observation of actual model
 					addjointvalue[0] = (float)(( j1 * Constants.RTD) + 180.0 );
@@ -599,7 +599,7 @@ namespace CSharpWrapper
 					
 					m_JointsTrajectory.Add(GenerateJointTrajectory(addjointvalue));
 					
-				}
+				//}
 			}
 			catch (Exception ex)
 			{
@@ -612,11 +612,11 @@ namespace CSharpWrapper
 		{	
 			try
 			{
-				if (m_Arm.JacoIsReady())
-				{					
+				//if (m_Arm.JacoIsReady())
+				//{					
 					m_Arm.ControlManager.SendBasicTrajectory(m_JointsTrajectory);
 					
-				}
+				//}
 			}
 			catch (Exception ex)
 			{
@@ -821,14 +821,14 @@ namespace CSharpWrapper
 		{	
 			try
 			{
-				if (m_Arm.JacoIsReady())
-				{	
+				//if (m_Arm.JacoIsReady())
+				//{	
 					m_JointsTrajectory.Trajectory.Clear();
 					m_fingerTrajectory.Trajectory.Clear ();
 					// erasing any previous trajectories
 					m_Arm.ControlManager.EraseTrajectories();					
 					
-				}
+				//}
 			}
 			catch (Exception ex)
 			{
