@@ -1,0 +1,3 @@
+C:\Kinova\Workspace\ExempleProjets\0001\Exemples Projet_public\KinovaExample_1.0.0\KinovaExample_Position\bin\Debug\KinovaExample_Position.exe.config
+C:\Kinova\Workspace\ExempleProjets\0001\Exemples Projet_public\KinovaExample_1.0.0\KinovaExample_Position\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Workspace\ExempleProjets\0002\Exemples Projet_public\CSharp\KinovaExample_Position\bin\Debug\KinovaExample_Position.exe.config
