@@ -42,6 +42,8 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
+execute_process(COMMAND xbuild ../CSharpWrapper/CSharpWrapper/CSharpWrapper.csproj)
+
 set(CSharpWrapper_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/../CSharpWrapper/CSharpWrapper/bin/Debug)
 
 #uncomment if you have defined messages
