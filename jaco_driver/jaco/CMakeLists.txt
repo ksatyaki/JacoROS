@@ -42,6 +42,17 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
+#builds the csharp wrapper necessary to use jaco
+execute_process(COMMAND xbuild ${PROJECT_SOURCE_DIR}/../CSharpWrapper/CSharpWrapper/CSharpWrapper.csproj
+                  RESULT_VARIABLE Result
+                  OUTPUT_VARIABLE Output
+                  ERROR_VARIABLE Error)
+if(Result EQUAL 0)
+    message(STATUS "CSharpWrapper build success")
+  else()
+    message(FATAL_ERROR "CSharpwrapper build Result - ${Result}\nOutput - ${Output}\nError - Error")
+  endif()
+
 set(CSharpWrapper_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/../CSharpWrapper/CSharpWrapper/bin/Debug)
 
 #uncomment if you have defined messages
