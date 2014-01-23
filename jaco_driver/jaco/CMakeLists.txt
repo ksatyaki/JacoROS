@@ -42,6 +42,17 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
+#builds the csharp wrapper necessary to use jaco
+execute_process(COMMAND xbuild ${PROJECT_SOURCE_DIR}/../CSharpWrapper/CSharpWrapper/CSharpWrapper.csproj
+                  RESULT_VARIABLE Result
+                  OUTPUT_VARIABLE Output
+                  ERROR_VARIABLE Error)
+if(Result EQUAL 0)
+    message(STATUS "CSharpWrapper build success")
+  else()
+    message(FATAL_ERROR "CSharpwrapper build Result - ${Result}\nOutput - ${Output}\nError - Error")
+  endif()
+
 set(CSharpWrapper_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/../CSharpWrapper/CSharpWrapper/bin/Debug)
 
 #uncomment if you have defined messages
@@ -56,7 +67,7 @@ set(Include_Libs optimized ${mono-2.0_INCLUDE_LIBS} ${glib-2.0_INCLUDE_LIBS})
 
 rosbuild_add_boost_directories()
 
-rosbuild_add_executable(jaco src/abstract_jaco.cpp  src/jaco_node.cpp src/jaco.cpp src/jaco_joint_publisher.cpp src/jaco_action_controller.cpp)
+rosbuild_add_executable(jaco src/abstract_jaco.cpp  src/jaco_node.cpp src/jaco.cpp src/jaco_joint_publisher.cpp src/jaco_action_controller.cpp src/gripper_controller.cpp)
 
 rosbuild_link_boost(jaco thread)
 target_link_libraries(jaco ${Include_Libs})
