@@ -65,6 +65,7 @@ namespace kinova
                 ros::Rate loop_rate(100);
 		JacoJointPublisher jacoJointPublisher(jaco);	
 		JacoActionController jacoActionController(jaco);
+		GripperAction gripper_controller(jaco);
                 		
 		while (ros::ok())
 	  	{

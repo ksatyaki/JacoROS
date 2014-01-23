@@ -56,7 +56,7 @@ set(Include_Libs optimized ${mono-2.0_INCLUDE_LIBS} ${glib-2.0_INCLUDE_LIBS})
 
 rosbuild_add_boost_directories()
 
-rosbuild_add_executable(jaco src/abstract_jaco.cpp  src/jaco_node.cpp src/jaco.cpp src/jaco_joint_publisher.cpp src/jaco_action_controller.cpp)
+rosbuild_add_executable(jaco src/abstract_jaco.cpp  src/jaco_node.cpp src/jaco.cpp src/jaco_joint_publisher.cpp src/jaco_action_controller.cpp src/gripper_controller.cpp)
 
 rosbuild_link_boost(jaco thread)
 target_link_libraries(jaco ${Include_Libs})

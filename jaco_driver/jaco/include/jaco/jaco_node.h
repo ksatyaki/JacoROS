@@ -31,6 +31,7 @@
 #include <jaco/jaco_joint_publisher.h>
 #include <jaco/jaco.h>
 #include <jaco/jaco_action_controller.h>
+#include <jaco/gripper_controller.h>
 #include <std_msgs/String.h>
 #include <geometry_msgs/Point.h>
 
