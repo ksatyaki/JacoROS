@@ -99,12 +99,13 @@ public partial class MainWindow : Gtk.Window
 	{
 		try
 		{
-			jaco = new CJacoArm(Crypto.GetInstance().Encrypt("MyValidPassword"));
+			jaco = new CJacoArm(Crypto.GetInstance().Encrypt("C6H12O6h2so4"));
+			jaco.GetAPIVersion();
 			m_OutConnectionStatus.Text = "Jaco is connected.";
 		}
-		catch(Exception)
+		catch(Exception err)
 		{
-			m_OutConnectionStatus.Text = "Jaco is not connected or your password is invalid.";
+			m_OutConnectionStatus.Text = "Jaco is not connected or your password is invalid. Reason: \n" + err.ToString();
 		}
 		
 		m_CurrentClientConfig = new CClientConfigurations();
@@ -411,7 +412,9 @@ public partial class MainWindow : Gtk.Window
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 	{
-		jaco.CloseAll();
+		if(jaco != null){
+			jaco.CloseAll();
+		}
 		Application.Quit ();
 		a.RetVal = true;
 	}

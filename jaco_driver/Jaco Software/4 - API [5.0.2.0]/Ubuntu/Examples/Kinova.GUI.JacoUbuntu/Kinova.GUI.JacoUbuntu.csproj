@@ -9,7 +9,6 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Kinova.GUI.JacoUbuntu</RootNamespace>
     <AssemblyName>Kinova.GUI.JacoUbuntu</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,29 +57,32 @@
       <Package>gtk-sharp-2.0</Package>
     </Reference>
     <Reference Include="Mono.Posix" />
-    <Reference Include="LibUsbDotNet, Version=2.2.8.104, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dev\DLL\LibUsbDotNet.dll</HintPath>
-    </Reference>
-    <Reference Include="Kinova.DLL.Data, Version=1.0.5.5, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dev\DLL\Kinova.DLL.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Kinova.DLL.Tools, Version=1.0.2.4, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dev\DLL\Kinova.DLL.Tools.dll</HintPath>
-    </Reference>
-    <Reference Include="Kinova.DLL.USBManager, Version=1.0.1.4, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dev\DLL\Kinova.DLL.USBManager.dll</HintPath>
-    </Reference>
     <Reference Include="Kinova.API.Jaco">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dev\DLL\Kinova.API.Jaco.dll</HintPath>
+      <HintPath>..\..\..\..\..\CSharpWrapper\CSharpWrapper\Jaco_API_DLL\Kinova.API.Jaco.dll</HintPath>
     </Reference>
     <Reference Include="Kinova.DLL.SafeGate">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dev\DLL\Kinova.DLL.SafeGate.dll</HintPath>
+      <HintPath>..\..\..\..\..\CSharpWrapper\CSharpWrapper\Jaco_API_DLL\Kinova.DLL.SafeGate.dll</HintPath>
+    </Reference>
+    <Reference Include="Kinova.DLL.CommData">
+      <HintPath>..\..\..\..\..\CSharpWrapper\CSharpWrapper\Jaco_API_DLL\Kinova.DLL.CommData.dll</HintPath>
+    </Reference>
+    <Reference Include="Kinova.DLL.Data">
+      <HintPath>..\..\..\..\..\CSharpWrapper\CSharpWrapper\Jaco_API_DLL\Kinova.DLL.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Kinova.DLL.TcpConnector">
+      <HintPath>..\..\..\..\..\CSharpWrapper\CSharpWrapper\Jaco_API_DLL\Kinova.DLL.TcpConnector.dll</HintPath>
+    </Reference>
+    <Reference Include="Kinova.DLL.TestData">
+      <HintPath>..\..\..\..\..\CSharpWrapper\CSharpWrapper\Jaco_API_DLL\Kinova.DLL.TestData.dll</HintPath>
+    </Reference>
+    <Reference Include="Kinova.DLL.Tools">
+      <HintPath>..\..\..\..\..\CSharpWrapper\CSharpWrapper\Jaco_API_DLL\Kinova.DLL.Tools.dll</HintPath>
+    </Reference>
+    <Reference Include="Kinova.DLL.USBManager">
+      <HintPath>..\..\..\..\..\CSharpWrapper\CSharpWrapper\Jaco_API_DLL\Kinova.DLL.USBManager.dll</HintPath>
+    </Reference>
+    <Reference Include="LibUsbDotNet">
+      <HintPath>..\..\..\..\..\CSharpWrapper\CSharpWrapper\Jaco_API_DLL\LibUsbDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

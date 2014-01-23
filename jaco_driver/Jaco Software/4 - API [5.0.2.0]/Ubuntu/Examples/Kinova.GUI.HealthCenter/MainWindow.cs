@@ -118,7 +118,7 @@ public partial class MainWindow : Gtk.Window
 	{
 		try
 		{
-			jaco = new CJacoArm(Crypto.GetInstance().Encrypt("MyValisPassword"));
+			jaco = new CJacoArm(Crypto.GetInstance().Encrypt("C6H12O6h2so4"));
 			m_OutConnectionStatus.ModifyFg(StateType.Normal, m_ColorConnectionOpened);
 			m_OutConnectionStatus.Text = "Jaco is connected.";
 		}
