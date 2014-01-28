@@ -134,21 +134,21 @@ namespace kinova
 
 
      control_msgs::GripperCommandResult result;
-         result.position = active_goal_.getGoal()->command.position;
-         result.effort = active_goal_.getGoal()->command.max_effort;
-         result.reached_goal = true;
-         result.stalled = false;
+	result.position = active_goal_.getGoal()->command.position;
+	 result.effort = active_goal_.getGoal()->command.max_effort;
+	 result.reached_goal = true;
+	 result.stalled = false;
 
 
-         active_goal_.setSucceeded(result);
-         has_active_goal_ = false;
+	 active_goal_.setSucceeded(result);
+	 has_active_goal_ = false;
 
 
-         control_msgs::GripperCommandFeedback feedback;
-          feedback.position = active_goal_.getGoal()->command.position;
-          feedback.effort = active_goal_.getGoal()->command.max_effort;
-          feedback.reached_goal = true;
-          feedback.stalled = false;
+	 control_msgs::GripperCommandFeedback feedback;
+	  feedback.position = active_goal_.getGoal()->command.position;
+	  feedback.effort = active_goal_.getGoal()->command.max_effort;
+	  feedback.reached_goal = true;
+	  feedback.stalled = false;
 
      active_goal_.publishFeedback(feedback);
 
