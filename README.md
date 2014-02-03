@@ -1,6 +1,16 @@
 JacoROS
 =======
 
+Start the driver with roslaunch jaco start.launch <br />
+
+Use this in combination with the jaco_moveit_config package.
+
+The package has been cleaned up (deleted arm_navigation stuff)
+
+Gazebo has not been testet yet.
+
+Old documentation:
+
 **Package Description**
 
 1. jaco_driver <br />
