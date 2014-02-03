@@ -1,0 +1,33 @@
+<package>
+  <name>jaco_driver</name>
+  <version>1.0.0</version>
+  <description>jaco_driver</description>
+  <maintainer email="sankar.natarajan@dfki.de">Maintained by Sankaranarayanan Natarajan</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/jaco_driver</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author email="sankar.natarajan@dfki.de">Maintained by Sankaranarayanan Natarajan</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>jaco_description</run_depend>
+  <run_depend>jaco</run_depend>
+  <run_depend>jaco_smach</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+
+
+
+
+
+
+
+</package>

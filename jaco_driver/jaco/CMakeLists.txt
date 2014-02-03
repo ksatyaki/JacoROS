@@ -1,5 +1,19 @@
-cmake_minimum_required(VERSION 2.4.6)
-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
+# Catkin User Guide: http://www.ros.org/doc/groovy/api/catkin/html/user_guide/user_guide.html
+# Catkin CMake Standard: http://www.ros.org/doc/groovy/api/catkin/html/user_guide/standards.html
+cmake_minimum_required(VERSION 2.8.3)
+project(jaco)
+
+set(MESSAGE_DEPENDENCIES
+geometry_msgs
+std_msgs
+actionlib_msgs
+trajectory_msgs
+control_msgs
+)
+
+# Load catkin and all dependencies required for this package
+find_package(catkin REQUIRED COMPONENTS roscpp urdf actionlib message_generation ${MESSAGE_DEPENDENCIES})
+
 
 # Set the build type.  Options are:
 #  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
@@ -9,7 +23,9 @@ include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 #  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
 #set(ROS_BUILD_TYPE RelWithDebInfo)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+#message(STATUS ${Boost_LIBRARIES})
 
 INCLUDE(FindPkgConfig)
 
@@ -29,19 +45,6 @@ ELSE(mono-2.0_FOUND)
         MESSAGE(FATAL_ERROR "Looking for mono-2.0 - not found")
 ENDIF(mono-2.0_FOUND)
 
-
-#action for joint movement
-rosbuild_find_ros_package(actionlib_msgs)
-include(${actionlib_msgs_PACKAGE_PATH}/cmake/actionbuild.cmake)
-genaction()
-
-rosbuild_init()
-
-#set the default path for built executables to the "bin" directory
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-#set the default path for built libraries to the "lib" directory
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
-
 #builds the csharp wrapper necessary to use jaco
 execute_process(COMMAND xbuild ${PROJECT_SOURCE_DIR}/../CSharpWrapper/CSharpWrapper/CSharpWrapper.csproj
                   RESULT_VARIABLE Result
@@ -49,25 +52,48 @@ execute_process(COMMAND xbuild ${PROJECT_SOURCE_DIR}/../CSharpWrapper/CSharpWrap
                   ERROR_VARIABLE Error)
 if(Result EQUAL 0)
     message(STATUS "CSharpWrapper build success")
-  else()
+else()
     message(FATAL_ERROR "CSharpwrapper build Result - ${Result}\nOutput - ${Output}\nError - Error")
-  endif()
+endif()
 
 set(CSharpWrapper_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/../CSharpWrapper/CSharpWrapper/bin/Debug)
 
-#uncomment if you have defined messages
-rosbuild_genmsg()
-#uncomment if you have defined services
-#rosbuild_gensrv()
 
-INCLUDE_DIRECTORIES(${mono-2.0_INCLUDE_DIRS} ${glib-2.0_INCLUDE_DIRS} ${CSharpWrapper_INCLUDE_DIR})
+add_message_files(
+  FILES JacoPose.msg JacoPoseStamped.msg JacoPoseTrajectory.msg Point.msg
+)
+
+add_action_files(
+  FILES CartesianMovement.action FingerMovement.action
+)
+
+include_directories(include ${Boost_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS} ${mono-2.0_INCLUDE_DIRS} ${glib-2.0_INCLUDE_DIRS} ${CSharpWrapper_INCLUDE_DIR})
 
 set(Include_Libs optimized ${mono-2.0_INCLUDE_LIBS} ${glib-2.0_INCLUDE_LIBS})
 
+add_executable(jaco src/abstract_jaco.cpp  src/jaco_node.cpp src/jaco.cpp src/jaco_joint_publisher.cpp src/jaco_action_controller.cpp src/gripper_controller.cpp)
 
-rosbuild_add_boost_directories()
+#If you have a package which builds messages and/or services as well as executables that use them, you #need to create an explicit dependency on the automatically-generated message target so that they are #built in the correct order:
+add_dependencies(jaco ${PROJECT_NAME}_generate_messages_cpp)
 
-rosbuild_add_executable(jaco src/abstract_jaco.cpp  src/jaco_node.cpp src/jaco.cpp src/jaco_joint_publisher.cpp src/jaco_action_controller.cpp src/gripper_controller.cpp)
+find_package(Boost REQUIRED COMPONENTS thread)
 
-rosbuild_link_boost(jaco thread)
+target_link_libraries(jaco ${Boost_LIBRARIES})
+target_link_libraries(jaco ${catkin_LIBRARIES})
 target_link_libraries(jaco ${Include_Libs})
+
+## Generate added messages and services with any dependencies listed here
+generate_messages(
+    DEPENDENCIES ${MESSAGE_DEPENDENCIES}
+)
+
+
+
+# catkin_package parameters: http://ros.org/doc/groovy/api/catkin/html/dev_guide/generated_cmake_api.html#catkin-package
+
+catkin_package(
+    #DEPENDS 
+    CATKIN_DEPENDS message_runtime urdf actionlib ${MESSAGE_DEPENDENCIES}
+    INCLUDE_DIRS include
+    #LIBRARIES # TODO
+)
