@@ -1,0 +1,38 @@
+﻿Build started 2012-11-05 11:08:12.
+     1>Project "C:\Kinova\Workspace\CppAPITest\TestCommandLayer\TestCommandLayer.vcxproj" on node 2 (rebuild target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\TestCommandLayer.lastbuildstate".
+       InitializeBuildStatus:
+         Creating "Debug\TestCommandLayer.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"StdAfx.h" /Fp"Debug\TestCommandLayer.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         c:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Debug\TestCommandLayer.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt TestCommandLayer.cpp
+         TestCommandLayer.cpp
+     1>c:\kinova\workspace\cppapitest\testcommandlayer\kinova.dll.commlayer.h(9): warning C4005: 'NO_ERROR' : macro redefinition
+                 c:\program files\microsoft sdks\windows\v7.0a\include\winerror.h(130) : see previous definition of 'NO_ERROR'
+     1>c:\kinova\workspace\cppapitest\testcommandlayer\testcommandlayer.cpp(119): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _getch. See online help for details.
+                 c:\program files\microsoft visual studio 10.0\vc\include\conio.h(128) : see declaration of 'getch'
+       ManifestResourceCompile:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\TestCommandLayer.exe.embed.manifest.res" Debug\TestCommandLayer_manifest.rc 
+       Link:
+         c:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Kinova\Workspace\CppAPITest\Debug\TestCommandLayer.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\TestCommandLayer.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Kinova\Workspace\CppAPITest\Debug\TestCommandLayer.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Kinova\Workspace\CppAPITest\Debug\TestCommandLayer.lib" /MACHINE:X86 Debug\TestCommandLayer.exe.embed.manifest.res
+         Debug\stdafx.obj
+         Debug\TestCommandLayer.obj
+       Manifest:
+         Deleting file "Debug\TestCommandLayer.exe.embed.manifest".
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\TestCommandLayer.exe.embed.manifest" /manifest Debug\TestCommandLayer.exe.intermediate.manifest
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\TestCommandLayer.exe.embed.manifest.res" Debug\TestCommandLayer_manifest.rc 
+       LinkEmbedManifest:
+         c:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Kinova\Workspace\CppAPITest\Debug\TestCommandLayer.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\TestCommandLayer.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Kinova\Workspace\CppAPITest\Debug\TestCommandLayer.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Kinova\Workspace\CppAPITest\Debug\TestCommandLayer.lib" /MACHINE:X86 Debug\TestCommandLayer.exe.embed.manifest.res
+         Debug\stdafx.obj
+         Debug\TestCommandLayer.obj
+         TestCommandLayer.vcxproj -> C:\Kinova\Workspace\CppAPITest\Debug\TestCommandLayer.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\TestCommandLayer.unsuccessfulbuild".
+         Touching "Debug\TestCommandLayer.lastbuildstate".
+     1>Done Building Project "C:\Kinova\Workspace\CppAPITest\TestCommandLayer\TestCommandLayer.vcxproj" (rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.67
