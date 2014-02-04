@@ -1,0 +1,4 @@
+/home/sp/hydro_catkin_workspace/src/jaco_driver/CSharpWrapper/CSharpWrapper/bin/Debug/CSharpWrapper.dll.mdb
+/home/sp/hydro_catkin_workspace/src/jaco_driver/CSharpWrapper/CSharpWrapper/bin/Debug/CSharpWrapper.dll
+/home/sp/hydro_catkin_workspace/src/jaco_driver/CSharpWrapper/CSharpWrapper/obj/Debug/CSharpWrapper.dll
+/home/sp/hydro_catkin_workspace/src/jaco_driver/CSharpWrapper/CSharpWrapper/obj/Debug/CSharpWrapper.dll.mdb

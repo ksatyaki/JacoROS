@@ -1,0 +1,8 @@
+To manually install the driver on Win7 and WinVista
+
+In a console, type:  hdwwiz
+
+
+Pour installer manuellement le driver sur Win7 et WinVista
+
+Dans une console, tapez : hdwwiz 
