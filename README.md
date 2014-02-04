@@ -1,44 +1,49 @@
 JacoROS
 =======
 
-This is a catkinized hydro compatible version of SankarNatarajan's JacoROS packag with a MoveIt! config needed to run the Kinova Jaco arm with MoveIt!
+This is a hydro compatible version of SankarNatarajan's JacoROS packag with a MoveIt! config needed to run the Kinova Jaco arm with MoveIt! The package has been cleaned up (deleted arm_navigation stuff) and catkinized.
 
-Its possible to control the arm via RViz and move_group api. The gripper controller will be added in the next commit. The API wrapper/driver still needs some improvement. E.g. to show the correct arm and finger posture in rviz the arm needs to be moved once with the joystick. Additionally sometimes the driver needs to be restarted because the arm doesn't respond anymore. Also ikFast should be used. 
+Its possible to control the arm via RViz and move_group api. The gripper controller will be added in the next commit. The API wrapper/driver still needs some improvement. E.g. to show the correct arm and finger posture in rviz the arm needs to be moved once with the joystick. Additionally sometimes the driver needs to be restarted because the arm doesn't respond anymore. Also ikfast should be used.
+
+Gazebo worked with groovy but has not been testet with hydro/catkin yet (Needs a different arm controller config than the real arm) 
 
 #### Installation:
 
-```sudo apt-get install ros-groovy-moveit-full mono-devel```
+```sudo apt-get install ros-hydro-desktop-full ros-hydro-moveit-full mono-devel```
 
-##### Create a catkin workspace
-
-TODO HOWTO
-
-##### Clone the workspaces from gitlab:
-```
-cd <catkin_ws>/src
-wstool init
-wstool set JacoROS --git https://github.com/fivef/JacoROS.git
-wstool update JacoROS
-
-
-##### Create workspaces
+##### Create a catkin workspaces
 ```
 cd <catkin_ws>
 catkin_make
 source devel/setup.bash
 ```
 
+##### Clone the workspace from gitlab:
+```
+cd <catkin_ws>/src
+wstool init
+wstool set JacoROS --git https://github.com/fivef/JacoROS.git
+wstool update JacoROS
+```
+
 Add this to your .bashrc for automatically sourcing the workspaces each time you open a terminal (replace <your_catkin_workspace>):
-  source <your_catkin_workspace>/devel/setup.bash
+
+```
+source <your_catkin_workspace>/devel/setup.bash
+```
 
 ##### For Jaco USB access:
 
 ####### Copy Jaco udev rule to your udev rules folder:
+```
 cd to the cloned "JacoROS" folder
 sudo cp udev/99-jaco-arm.rules /lib/udev/rules.d/
+```
   
 ####### Copy the Kinova folder from the jaco_ros package to you home folder or alternatively install the Jaco driver as described in the Jaco documentation (docs and bins can be found in the "Jaco Software" folder):
+```
 sudo cp -r Kinova ~
+```
  
 ##### start components with:
 
@@ -48,9 +53,7 @@ roslaunch jaco_moveit_config bringup_moveit_planning_execution.launch
 ```
 
 
-The package has been cleaned up (deleted arm_navigation stuff)
 
-Gazebo has not been testet yet.
 
 
 The old documentation:
