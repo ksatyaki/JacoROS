@@ -41,9 +41,10 @@ namespace kinova
                 if(apistate)
                 {
                         jaco->startApiCtrl();
-                        //jaco->setActuatorPIDGain(1, 1.0, 0.5, 0.0);
-                        //jaco->setActuatorPIDGain(2, 1.0, 0.5, 0.0);
-                        //jaco->setActuatorPIDGain(3, 0.7, 0.2, 0.0);
+                        //jaco->setActuatorPIDGain(1, 0.1, 0.1, 0.0);
+                        //jaco->setActuatorPIDGain(2, 0.1, 0.1, 0.0);
+                        //jaco->setActuatorPIDGain(6, 0.1, 0.1, 0.0);
+                        //jaco->retract();
                 }
                 else
                         std::cout<< "Error : Jaconode intialising failed"<<std::endl;
@@ -70,6 +71,7 @@ namespace kinova
 		while (ros::ok())
 	  	{
 			jaco -> readJacoStatus();
+
 			jacoJointPublisher.update();
 			jacoActionController.update();
 					

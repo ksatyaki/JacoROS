@@ -175,12 +175,9 @@ namespace CSharpWrapper
 		{
 			try
 			{
-				//if (m_Arm.JacoIsReady())
-	    	//	{				
-	        		//From now on, API can move the arm.	        		
-					m_Arm.ControlManager.StartControlAPI();
-								
-	    		//}
+	        	//From now on, API can move the arm.	        		
+				m_Arm.ControlManager.StartControlAPI();
+
 			}
 			catch (Exception ex)
 			{
@@ -194,11 +191,8 @@ namespace CSharpWrapper
 		{
 			try
 			{
-				//if (m_Arm.JacoIsReady())
-				//{
-					m_Arm.ControlManager.StopControlAPI();
-					
-				//}
+				m_Arm.ControlManager.StopControlAPI();
+
 			}
 			catch (Exception ex)
 			{
@@ -206,7 +200,23 @@ namespace CSharpWrapper
 				System.Console.WriteLine(ex.ToString());
 			}
 			
-		}	
+		}
+		
+		public bool JacoIsApiInCtrl()
+		{
+			try
+			{
+				bool result = m_Arm.ControlManager.IsApiInControl();
+				return result;
+			}
+			catch (Exception ex)
+			{
+				System.Console.WriteLine("EXCEPTION in JacoIsApiInCtrl");
+				System.Console.WriteLine(ex.ToString());
+				return false;
+			}
+			
+		}
 
 		
 		public void JacoSetAngularMode()
@@ -508,10 +518,7 @@ namespace CSharpWrapper
 		{			
 			try
 			{
-				if (m_Arm.JacoIsReady())
-				{
-					
-					
+						
 					System.Console.WriteLine("Jaco arm API Retract()");
 					m_Cmd = new CJoystickValue();
 					m_Cmd.ButtonValue[2] = 1;
@@ -571,7 +578,7 @@ namespace CSharpWrapper
 			            }						
 					}	
 										
-				}
+				
 			}
 			catch (Exception ex)
 			{

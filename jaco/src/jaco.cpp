@@ -60,6 +60,7 @@ namespace kinova
          	void* iterator = 0;
 
 
+
         	//We loop all method from CSharpWrapper to get those we need.
          	//In this case, the constructor and the methods.
 		while ((tempMethod = mono_class_get_methods(jaco_class, &iterator)))
@@ -100,6 +101,8 @@ namespace kinova
                                 StartAPI  = tempMethod;
                         else if (strcmp(mono_method_get_name(tempMethod), "JacoStopAPICtrl") == 0)
                                 StopAPI  = tempMethod;
+                        else if (strcmp(mono_method_get_name(tempMethod), "JacoIsApiInCtrl") == 0)
+                                IsApiInCtrl  = tempMethod;
                         else if (strcmp(mono_method_get_name(tempMethod), "JacoSetAngularMode") == 0)
                                 SetAngularMode  = tempMethod;
                         else if (strcmp(mono_method_get_name(tempMethod), "JacoSetCartesianMode") == 0)
@@ -108,6 +111,11 @@ namespace kinova
                                 SetActuatorPIDGain  = tempMethod;
                         else if (strcmp(mono_method_get_name(tempMethod), "JacoFactoryRestore") == 0)
                                 RestoreFactorySetting  = tempMethod;
+                        else if (strcmp(mono_method_get_name(tempMethod), "JacoRetract") == 0)
+                        	    Retract  = tempMethod;
+
+
+
 			
 		}
 	
@@ -145,6 +153,8 @@ namespace kinova
                         std::cout << "Cannot find method JacoStartAPICtrl!" << std::endl;
                 if (!StopAPI)
                         std::cout << "Cannot find method JacoStopAPICtrl!" << std::endl;
+                if (!IsApiInCtrl)
+                        std::cout << "Cannot find method JacoIsApiInCtrl!" << std::endl;
                 if (!SetAngularMode)
                         std::cout << "Cannot find method JacoSetAngularMode!" << std::endl;
                 if (!SetCartesianMode)
@@ -153,6 +163,8 @@ namespace kinova
                         std::cout << "Cannot find method JacoSetActuatorPIDGain!" << std::endl;
                 if (!RestoreFactorySetting)
                         std::cout << "Cannot find method JacoFactoryRestore!" << std::endl;
+                if (!Retract)
+                        std::cout << "Cannot find method JacoRetract!" << std::endl;
 
 
 
@@ -160,7 +172,9 @@ namespace kinova
          	void* args[1];
          	args[0] = mono_string_new(jaco_domain, API_password);
  
-                mono_runtime_invoke(JacoConstructor, jaco_classobject, args, &jaco_exc);
+            mono_runtime_invoke(JacoConstructor, jaco_classobject, args, &jaco_exc);
+
+            lastApiControlState = false;
 
 		if (jaco_exc != NULL)	
 		{
@@ -189,11 +203,18 @@ namespace kinova
 	
 	void Jaco::readJacoStatus()
 	{	
+        std::cout<< "API state: " << checkApiInitialised() << std::endl;
+
+        isApiInCtrl();
+
+        setCartesianModeAfterApiControlLost();
+
 
 		jaco_exc = NULL;
 		
             	MonoObject *jacostate_obj = mono_runtime_invoke(GetState, jaco_classobject, NULL, &jaco_exc);
             	jacostate = *((JacoArmState*)mono_object_unbox(jacostate_obj));
+
 
 		if (jaco_exc != NULL)	
                 {
@@ -326,8 +347,19 @@ namespace kinova
 	bool Jaco::setJointSpaceTrajectory(std::vector<double> jointtrajectory)
 	{	
 
+	    /*This is dangerous because the API/ROS application can take back the API control by itself.
+		* Perhaps this should only be possible with explicit user interaction like pressing a specific joystick button.
+		*/
+		if(!isApiInCtrl()){
+			startApiCtrl();
+		}
+
 		if(!setAngularMode())
+		{
+			std::cout<< "Enable angular mode" <<std::endl;
 			return false;
+		}
+
 
 		// erasing any previous trajectory
 		if(!eraseTrajectories())
@@ -369,6 +401,7 @@ namespace kinova
 				std::cout<< "!!!!!!!  Error while calling the C#wrapper SetJointSpaceTrajectory" <<std::endl;
 				return false;
 			}
+
 			return true;			
 			
 		}
@@ -445,6 +478,7 @@ namespace kinova
                         return false;
 		
                 mono_runtime_invoke(OpenFingers, jaco_classobject, NULL, &jaco_exc);
+                std::cout<< "Open Fingers" <<std::endl;
 		
 		if (jaco_exc != NULL)	
                 {
@@ -486,8 +520,20 @@ namespace kinova
 
                 jaco_exc = NULL;
 
-                if(!setAngularMode())
-                        return false;
+                /*This is dangerous because the API/ROS application can take back the API control by itself.
+                * Perhaps this should only be possible with explicit user interaction like pressing a specific joystick button.
+                */
+                if(!isApiInCtrl()){
+                	startApiCtrl();
+                }
+
+
+				if(!setAngularMode())
+				{
+					std::cout<< "Enable angular mode" <<std::endl;
+					return false;
+				}
+
 
                 // erasing any previous trajectory
                 if(!eraseTrajectories())
@@ -565,6 +611,23 @@ namespace kinova
 
 	}
 
+	bool Jaco::setCartesianModeAfterApiControlLost()
+	{
+		bool apiControlState = isApiInCtrl();
+
+		//If API control was lost
+		if(lastApiControlState == true && apiControlState == false){
+
+			setCartesianMode();
+
+			std::cout<< "API control lost, Cartesian mode enabled." <<std::endl;
+
+		}
+
+		lastApiControlState = apiControlState;
+
+	}
+
 
 	bool Jaco::stopApiCtrl()
 	{
@@ -579,6 +642,34 @@ namespace kinova
                 }
 		else
 			return true;
+	}
+
+
+	bool Jaco::isApiInCtrl()
+	{
+		jaco_exc = NULL;
+
+		MonoObject* apiState = mono_runtime_invoke(IsApiInCtrl, jaco_classobject, NULL, &jaco_exc);
+
+
+
+		bool state = *(bool*)mono_object_unbox(apiState);
+
+		std::cout<< "API control state: " << state << std::endl;
+
+
+		/*
+		 *  	MonoObject *jacostate_obj = mono_runtime_invoke(GetState, jaco_classobject, NULL, &jaco_exc);
+            	jacostate = *((JacoArmState*)mono_object_unbox(jacostate_obj));
+		 */
+
+		if (jaco_exc != NULL)
+                {
+	               	std::cout<< "!!!!!!!  Error while calling the C#wrapper IsApiInCtrl" <<std::endl;
+                	return false;
+                }
+		else
+			return state;
 	}
 
         bool Jaco::setActuatorPIDGain(int jointnum, float P, float I, float D)
@@ -618,69 +709,19 @@ namespace kinova
 			return true;
 	}
 
+	bool Jaco::retract()
+	{
+		jaco_exc = NULL;
+
+		mono_runtime_invoke(Retract, jaco_classobject, NULL, &jaco_exc);
+
+		if (jaco_exc != NULL)
+                {
+	               	std::cout<< "!!!!!!!  Error while calling the C#wrapper restoreFactorySetting" <<std::endl;
+                	return false;
+                }
+		else
+			return true;
+	}
+
 }
-
-
-
-
-/*	
-	!!!!! This method works, but everytime u call u need to declare a array and fill the stuff  !!!!
-	std::vector<double> Jaco::getJointAngles()
-	{	
-		std::vector<double> joint_angles(6,0.0);
-		jaco_exc = NULL;
-		
-		jarray_act_jtang = (MonoArray*) mono_runtime_invoke(GetJointAngles, jaco_classobject, NULL, &jaco_exc);
-
-		if(jarray_act_jtang)
-		{
-			for(int i = 0; i< 6; i++)
-				ja[i] = (double *)mono_array_addr (jarray_act_jtang, double, i);
-
-			// Mapping the read value from robot to "normal" configuration
-			joint_angles.at(0) =  (*ja[0]);
-			joint_angles.at(1) =  (*ja[1]) - M_PI;
-			joint_angles.at(2) =  M_PI - (*ja[2]);
-			joint_angles.at(3) = (*ja[3]);
-			joint_angles.at(4) = (*ja[4]);
-			joint_angles.at(5) = (*ja[5]);   
-     
-         	}         
-	
-		if (jaco_exc != NULL)	
-                {
-                	std::cout<< "!!!!!!!  Error while calling the C#wrapper getjointangle" <<std::endl;
-                	exit(1);
-                }
-
-		return joint_angles;
-	}*/
-
-	/*
-	!!!!! For what ever reason, if you used a reference array to get joint angles.. once in a while you get zero joint angles.
-	For this reason we are not using this function  !!!!
-	void Jaco::getJointAngles(std::vector<double> &jointangles)
-	{		
-		jaco_exc = NULL;
-
-		mono_runtime_invoke(GetJointAngles, jaco_classobject, get_params, &jaco_exc);
-		//jarray_act_jtang = (MonoArray*) mono_runtime_invoke(GetJointAngles, jaco_classobject, NULL, &jaco_exc);
-
-		if(jarray_act_jtang)
-		{
-			for(int i = 0; i< 6; i++)
-			{
-				ja[i] = (double *)mono_array_addr (jarray_act_jtang, double, i);
-				jointangles.at(i) = *ja[i];
-			}
-   
-     
-         	}         
-	
-		if (jaco_exc != NULL)	
-                {
-                	std::cout<< "!!!!!!!  Error while calling the C#wrapper getjointangle" <<std::endl;
-                	exit(1);
-                }
-	}*/
-	

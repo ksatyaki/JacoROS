@@ -200,43 +200,6 @@ namespace kinova
                                         has_active_goal = false;                                        
 
                                 }
-				
-				/*
-				// uncommented bcoz now we can set PID gain.
-                                if (simplecontroller_jointSpace(current_jtangles, final_jtangles))                                
-                                {
-                                        
-                                        jtaction_res.error_code = control_msgs::FollowJointTrajectoryResult::SUCCESSFUL;
-                                        movejoint_done = false;
-                                        joint_active_goal.setSucceeded(jtaction_res);
-
-                                        std::cout<<" Final angles in degree"<<std::endl;
-                                        for(int i = 0; i< 6; i++)
-                                        std::cout<<current_jtangles.at(i)*RTD<<"  ";
-                                        std::cout<<"---------------"<<std::endl;
-                                        std::cout<<" Final angles in Radian"<<std::endl;
-                                        for(int i = 0; i< 6; i++)
-                                        std::cout<<current_jtangles.at(i)<<"  ";
-
-                                                                                
-                                        std::cerr<<"!!!!!!!!  finished !!!!!!!!!!!!"<<std::endl;
-                                        error_factor = 1;
-                                        control_counter = 0;
-                                        has_active_goal = false;
-
-
-                                        //stop_jaco = true;
-
-                                        if(control_counter > 10)
-                                        {
-                                                outerloopcontroller_jointSpace(current_jtangles, final_jtangles, error_factor);
-                                                error_factor = error_factor + 0.1;
-                                                control_counter = 0;
-                                        }
-
-                                }
-				*/
-                               
                         }
                 }
 
@@ -276,15 +239,7 @@ namespace kinova
                                 jtaction_fb.error.positions.at(i) = fabs(error_jtangles.at(i));
                         }
 
-                        joint_active_goal.publishFeedback(jtaction_fb); 
-
-			/*
-			// uncommented bcoz now we can set PID gain.
-			for (int i = 0; i < 6; i++)
-			{
-				final_jtangles.at(i) = gh.getGoal()->trajectory.points.at((num_jointTrajectory -1)).positions.at(i);
-			}*/                       
-                       
+                        joint_active_goal.publishFeedback(jtaction_fb);
                 }
 
                 // pose

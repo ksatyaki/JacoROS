@@ -55,8 +55,10 @@ namespace kinova
 			virtual bool stopApiCtrl()=0;
 			virtual bool setAngularMode()=0;
 			virtual bool setCartesianMode()=0;
+			virtual bool isApiInCtrl()=0;
                         virtual bool setActuatorPIDGain(int jointnum, float P, float I, float D)=0;
                         virtual bool restoreFactorySetting()=0;
+                        virtual bool retract()=0;
 
                         std::vector<std::string> getJointNames();
                         std::vector<std::string> getFingersJointName();

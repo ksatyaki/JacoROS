@@ -91,10 +91,13 @@ namespace kinova
                         bool setFingersValues(double fingers[]);
                         bool startApiCtrl();
                         bool stopApiCtrl();
+                        bool isApiInCtrl();
                         bool setAngularMode();
                         bool setCartesianMode();
+                        bool setCartesianModeAfterApiControlLost();
                         bool setActuatorPIDGain(int jointnum, float P, float I, float D);
                         bool restoreFactorySetting();
+                        bool retract();
 		private:
                         /* Variables related to Mono */
                         // Domain that will contains our reference to the DLL
@@ -149,6 +152,8 @@ namespace kinova
                         MonoMethod *StartAPI;
                         // Stop API control of the arm - DLL
                         MonoMethod *StopAPI;
+                        // Check whether the arm is in API control - DLL
+                        MonoMethod *IsApiInCtrl;
                         // Set angular mode of the arm - DLL
                         MonoMethod *SetAngularMode;
                         // Set cartesian mode of the arm - DLL
@@ -157,6 +162,13 @@ namespace kinova
                         MonoMethod *SetActuatorPIDGain;
                         // Restore factory setting of the arm - DLL
                         MonoMethod *RestoreFactorySetting;
+                        // Retract arm - DLL
+                        MonoMethod *Retract;
+
+                        bool lastApiControlState;
+
+
+
 		public:
 			double ja[6];
 			double *tja[6];
