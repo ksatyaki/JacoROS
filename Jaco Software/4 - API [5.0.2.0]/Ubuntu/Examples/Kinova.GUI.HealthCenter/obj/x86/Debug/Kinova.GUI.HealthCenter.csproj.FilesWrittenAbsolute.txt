@@ -1,0 +1,1 @@
+/home/sp/groovy_rosbuild_workspace/jaco_ros/jaco_driver/Jaco Software/4 - API [5.0.2.0]/Ubuntu/Examples/Kinova.GUI.HealthCenter/obj/x86/Debug/Kinova.GUI.HealthCenter.gtk-gui.gui.stetic

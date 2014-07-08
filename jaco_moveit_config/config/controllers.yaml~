@@ -1,0 +1,23 @@
+controller_manager_ns: moveit_simple_controller_manager
+controller_list:
+  - name: "jaco_arm_controller"
+    action_ns: joint_trajectory_action
+    type: FollowJointTrajectory
+    default: true
+    joints:
+        - jaco_joint_1
+        - jaco_joint_2
+        - jaco_joint_3
+        - jaco_joint_4
+        - jaco_joint_5
+        - jaco_joint_6
+
+  - name: "jaco_gripper_controller"
+    action_ns: gripper_command
+    type: GripperCommand
+    default: true
+    joints:
+        - jaco_finger_joint_1
+        - jaco_finger_joint_2
+        - jaco_finger_joint_3
+

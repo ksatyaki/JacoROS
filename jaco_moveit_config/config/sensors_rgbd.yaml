@@ -1,0 +1,17 @@
+sensors:
+  - sensor_plugin: occupancy_map_monitor/PointCloudOctomapUpdater
+    point_cloud_topic: /kinect/depth_registered/points
+    max_range: 4.0
+    frame_subsample: 1
+    point_subsample: 5
+    shape_padding: 0.04
+    shape_scale: 1.0
+    #filtered_cloud_topic: filtered_cloud
+
+    #TODO: test if the following settings work
+    #default_robot_padding: 0.0
+    #default_robot_scale: 1.0
+    #default_object_padding: 0.0
+    #default_attached_padding: 0.0
+    
+

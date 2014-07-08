@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<robot
+	xmlns:xacro="http://ros.org/wiki/xacro"
+	name="jaco">
+	  
+	<xacro:macro name="jaco_arm_v0" params="name parent *origin">
+
+      <!-- The base joint & link -->
+      <joint name="${name}_base_joint" type="fixed">
+        <insert_block name="origin" />
+        <!-- fnh was: <origin xyz="0 0 0" rpy="0 0 0"/> -->
+        <parent link="${parent}"/>
+        <child link="${name}_base_link"/>
+      </joint>
+      
+    </xacro:macro>
+
+	<xacro:include filename="$(find jaco_description)/urdf/gazebo/jaco.urdf.xacro" />
+
+</robot>
