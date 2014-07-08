@@ -11,7 +11,6 @@ I have made small changes to the code.
 4. There was an attempt to build a working IKFast Plugin. But, that is not complete yet. The Plugin that is available here doesn't work, of course!
 5. Fingers can be controlled individually. It is possible to partly close the fingers. The topic finger_command takes three floating point values for each finger.
 
-The old documentation is below for reference.
 
 INSTALLATION
 ============
@@ -21,17 +20,18 @@ Then simply catkin_make the workspace.
 
 ##For Jaco USB access
 
-### Copy Jaco udev rule to your udev rules folder
+## Copy Jaco udev rule to your udev rules folder
 ```
 cd to the cloned "JacoROS" folder
 sudo cp udev/99-jaco-arm.rules /lib/udev/rules.d/
 ```
   
-### Copy the Kinova folder from the jaco_ros package to you home folder or alternatively install the Jaco driver as described in the Jaco documentation (docs and bins can be found in the "Jaco Software" folder)
+## Copy the Kinova folder from the jaco_ros package to you home folder or alternatively install the Jaco driver as described in the Jaco documentation (docs and bins can be found in the "Jaco Software" folder)
 ```
 sudo cp -r Kinova ~
 ```
 
+### The old documentation is below for reference.
 
 JacoROS
 =======
