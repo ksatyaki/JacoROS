@@ -20,13 +20,13 @@ Then simply catkin_make the workspace.
 
 ##For Jaco USB access
 
-## Copy Jaco udev rule to your udev rules folder
+#### Copy Jaco udev rule to your udev rules folder
 ```
 cd to the cloned "JacoROS" folder
 sudo cp udev/99-jaco-arm.rules /lib/udev/rules.d/
 ```
   
-## Copy the Kinova folder from the jaco_ros package to you home folder or alternatively install the Jaco driver as described in the Jaco documentation (docs and bins can be found in the "Jaco Software" folder)
+#### Copy the Kinova folder from the jaco_ros package to you home folder or alternatively install the Jaco driver as described in the Jaco documentation (docs and bins can be found in the "Jaco Software" folder)
 ```
 sudo cp -r Kinova ~
 ```
