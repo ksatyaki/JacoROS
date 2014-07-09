@@ -775,10 +775,6 @@ namespace kinova
         	if (    (fabs(currentvalue.at(0) - targetvalues[0]) < tol_jtag) && (fabs(currentvalue.at(1) - targetvalues[1]) < tol_jtag)
         			&& (fabs(currentvalue.at(2) - targetvalues[2]) < tol_jtag) )
         	{
-        		std::cout<<"Looks like we returned 1"<<std::endl;
-        		std::cout<<currentvalue[0]<<"="<<targetvalues[0]<<std::endl;
-        		std::cout<<currentvalue[1]<<"="<<targetvalues[1]<<std::endl;
-        		std::cout<<currentvalue[2]<<"="<<targetvalues[2]<<std::endl;
         		return true;
         	}
 
