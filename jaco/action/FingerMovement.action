@@ -2,6 +2,8 @@
 string task
 string OPEN = OPEN
 string CLOSE = CLOSE
+string ABS = ABS
+float64[] abs_position
 
 ---
 #result definition

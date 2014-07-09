@@ -31,7 +31,7 @@
 
 #include <actionlib/server/action_server.h>
 #include <jaco/abstract_jaco.h>
-#include <std_msgs/Float32MultiArray.h>
+#include <std_msgs/Float64MultiArray.h>
 #include <control_msgs/JointControllerState.h>
 #include <control_msgs/GripperCommand.h>
 #include <control_msgs/GripperCommandAction.h>
@@ -61,7 +61,7 @@ namespace kinova
 	  
 	  // Chitt added this.
 	  ros::Subscriber sub_finger_command_;
-	  void fingerCommandCallback(const std_msgs::Float32MultiArrayConstPtr& _msg);
+	  void fingerCommandCallback(const std_msgs::Float64MultiArrayConstPtr& _msg);
 
 	  bool has_active_goal_;
 	  GoalHandle active_goal_;

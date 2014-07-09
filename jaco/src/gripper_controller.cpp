@@ -226,7 +226,7 @@ namespace kinova
   /* Modified by Chittaranjan. Why? = Add a topic that will do the job
   of opening fingers separately, opening them half way, etc. */
   
-  void GripperAction::fingerCommandCallback(const std_msgs::Float32MultiArrayConstPtr& _msg)
+  void GripperAction::fingerCommandCallback(const std_msgs::Float64MultiArrayConstPtr& _msg)
   {
   	if(_msg->data.size() != 3)
   	{

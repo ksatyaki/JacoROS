@@ -58,6 +58,7 @@ namespace kinova
             
             	// Chitt added these.
             	current_pose_pub = jtacn.advertise <std_msgs::Float64MultiArray> ("current_pose", 1);
+            	fingers_pub = facn.advertise <std_msgs::Float64MultiArray> ("finger_command", 1);
 
                 finger_action = "";
 
@@ -305,6 +306,10 @@ namespace kinova
                                 boost::thread grasp_thread(boost::bind(&JacoActionController::objectgrasped,this));
 
                         }
+                        else if (finger_abs == true)
+                        {
+							fingers_pub.publish(desired_finger_values);
+                        }
                         else
                                 ROS_ERROR("something went wrong");
 
@@ -346,6 +351,16 @@ namespace kinova
                                         finger_close = false;
 
                                 }
+                        }
+
+                        else if (finger_abs == true)
+                        {
+                        	if ( (fingerTrajNumber == 0) && (simplecontroller_finger(current_fingervalues, desired_finger_values->data)  ) )
+                        	{
+                        		movefinger_done = false;
+                        		finger_active_goal.setSucceeded(fingeraction_res);
+                        		finger_abs = false;
+                        	}
                         }
                 }
 
@@ -528,6 +543,22 @@ namespace kinova
                         finger_open = true;
                 else if (finger_action == jaco::FingerMovementGoal::CLOSE)
                         finger_close = true;
+                else if(finger_action == jaco::FingerMovementGoal::ABS)
+                {
+                	if(gh.getGoal()->abs_position.size() != 3)
+                	{
+                		gh.setRejected();
+                		return;
+                	}
+                		finger_abs = true;
+                		desired_finger_values.reset();
+
+                		desired_finger_values = boost::shared_ptr<std_msgs::Float64MultiArray> (new std_msgs::Float64MultiArray);
+
+                		desired_finger_values->data.push_back(gh.getGoal()->abs_position[0]);
+                		desired_finger_values->data.push_back(gh.getGoal()->abs_position[1]);
+                		desired_finger_values->data.push_back(gh.getGoal()->abs_position[2]);
+                }
                 else
                 {
                         ROS_ERROR("incoming goal don't match our figner goal");
@@ -732,6 +763,28 @@ namespace kinova
 		
 
                 return false;
+
+        }
+
+        // Chitt added this function.
+        bool JacoActionController::simplecontroller_finger(const std::vector<double> &currentvalue, const std::vector<double> &targetvalues)
+        {
+        	double tol_jtag = 3.0 * DTR; 	// tolerance = 2 degree
+
+        	// for what ever reason sometime finger 1 and 2 works fine , not fionger 3
+        	if (    (fabs(currentvalue.at(0) - targetvalues[0]) < tol_jtag) && (fabs(currentvalue.at(1) - targetvalues[1]) < tol_jtag)
+        			&& (fabs(currentvalue.at(2) - targetvalues[2]) < tol_jtag) )
+        	{
+        		std::cout<<"Looks like we returned 1"<<std::endl;
+        		std::cout<<currentvalue[0]<<"="<<targetvalues[0]<<std::endl;
+        		std::cout<<currentvalue[1]<<"="<<targetvalues[1]<<std::endl;
+        		std::cout<<currentvalue[2]<<"="<<targetvalues[2]<<std::endl;
+        		return true;
+        	}
+
+
+
+        	return false;
 
         }
 

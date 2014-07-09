@@ -72,7 +72,11 @@ namespace kinova
                         bool is_trajectory_finished();
                         void calculate_error_dervError(const std::vector<double> &currentvalue, const std::vector<double> &targetvalue);                        
 			bool is_cartesianSpaceTrajectory_finished(const std::vector<double> &currentvalue, const std::vector<double> &targetvalue);
-                        bool simplecontroller_finger(const std::vector<double> &currentvalue, const double targetvalue);                        
+                        bool simplecontroller_finger(const std::vector<double> &currentvalue, const double targetvalue);
+
+                        // Chitt added this function
+                        bool simplecontroller_finger(const std::vector<double> &currentvalue, const std::vector<double>& targetvalues);
+
 			void watchdog(const ros::TimerEvent &e);			
 			void update();	
 			bool setsEqual(const std::vector<std::string> &a, const std::vector<std::string> &b);			
@@ -128,12 +132,14 @@ namespace kinova
                         void finger_goalCB(FingerGoalHandle gh);
                         void finger_cancelCB(FingerGoalHandle gh);
                         FAS finger_actionserver;
+                        ros::Publisher fingers_pub;
 
                         bool move_finger;
                         bool movefinger_done;
                         int fingerTrajNumber;
                         std::string finger_action;
-                        bool finger_open, finger_close;
+                        bool finger_open, finger_close, finger_abs;
+                        boost::shared_ptr<std_msgs::Float64MultiArray> desired_finger_values;
                         FingerGoalHandle finger_active_goal;
 
                         std::vector<double> fingers_current;
