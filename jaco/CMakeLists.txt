@@ -80,6 +80,7 @@ find_package(Boost REQUIRED COMPONENTS thread)
 
 target_link_libraries(jaco ${Boost_LIBRARIES})
 target_link_libraries(jaco ${catkin_LIBRARIES})
+MESSAGE(STATUS "THE MONO AND GLIB LIBRARIES ARE: ${Include_Libs}")
 target_link_libraries(jaco ${Include_Libs})
 
 ## Generate added messages and services with any dependencies listed here
