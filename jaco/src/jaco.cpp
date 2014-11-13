@@ -744,7 +744,7 @@ namespace kinova
 
 		if (jaco_exc != NULL)
                 {
-	               	std::cout<< "!!!!!!!  Error while calling the C#wrapper restoreFactorySetting" <<std::endl;
+	               	std::cout<< "!!!!!!!  Error while calling the C#wrapper in function: retract" <<std::endl;
                 	return false;
                 }
 		else

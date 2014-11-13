@@ -59,6 +59,7 @@ namespace kinova
             	// Chitt added these.
             	current_pose_pub = jtacn.advertise <std_msgs::Float64MultiArray> ("current_pose", 1);
             	fingers_pub = facn.advertise <std_msgs::Float64MultiArray> ("finger_command", 1);
+            	retract_sub = jtacn.subscribe ("retract", 1, &JacoActionController::retractCallback, this);
 
                 finger_action = "";
 
@@ -138,7 +139,17 @@ namespace kinova
                 sub_controller_state.shutdown();
                 watchdog_timer.stop();
         }
-
+        
+        // Chitt added these.
+		void JacoActionController::retractCallback(const std_msgs::EmptyConstPtr& _e)
+		{
+			if(JTAC_jaco->retract())
+				ROS_INFO("Retract success.");
+			else
+				ROS_INFO("Retract failure.");
+		}
+		// End.
+		
         void JacoActionController::update()
         {
         		// CHITT ADDED THESE //

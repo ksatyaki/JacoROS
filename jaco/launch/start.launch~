@@ -7,14 +7,12 @@
     <param name="robot_description" command="$(find xacro)/xacro.py $(find doro_description)/urdf/DomesticRobotWithCover.urdf.xacro" />	
 	
 	<!-- starting the jaco arm with a namespace ns="jaco" -->
-    <node ns="jaco" name="jaco_node" pkg="jaco" type="jaco" args='$(find jaco)/../CSharpWrapper/CSharpWrapper/bin/Debug/CSharpWrapper.dll'  output="screen"/>
+    <!-- node ns="jaco" name="jaco_node" pkg="jaco" type="jaco" args='$(find jaco)/../CSharpWrapper/CSharpWrapper/bin/Debug/CSharpWrapper.dll'  output="screen"/ -->
     
     <!-- state publisher -->
-    <node ns="jaco" name="jaco_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
-    	<!-- remap from="joint_states" to="jaco/joint_states"/ -->
-    </node>	
+    <node name="doro_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
     
-	<node name="joint_state_merger" pkg="joint_state_publisher" type="joint_state_publisher">
+    <node name="joint_state_merger" pkg="joint_state_publisher" type="joint_state_publisher">
 		<rosparam command="load" file="$(find jaco)/source_list.yaml"/>
 	</node>
 

@@ -43,6 +43,7 @@
 
 // Chitt added these.
 #include <std_msgs/Float64MultiArray.h>
+#include <std_msgs/Empty.h>
 
 
 #define DTR 0.0174532925
@@ -74,8 +75,9 @@ namespace kinova
 			bool is_cartesianSpaceTrajectory_finished(const std::vector<double> &currentvalue, const std::vector<double> &targetvalue);
                         bool simplecontroller_finger(const std::vector<double> &currentvalue, const double targetvalue);
 
-                        // Chitt added this function
+                        // Chitt added these functions
                         bool simplecontroller_finger(const std::vector<double> &currentvalue, const std::vector<double>& targetvalues);
+                        void retractCallback(const std_msgs::EmptyConstPtr& _e);
 
 			void watchdog(const ros::TimerEvent &e);			
 			void update();	
@@ -118,6 +120,7 @@ namespace kinova
 			
 			// Chitt added these.
 			ros::Publisher current_pose_pub;
+			ros::Subscriber retract_sub;
 						
 			bool move_pose;
 			bool movepose_done;
