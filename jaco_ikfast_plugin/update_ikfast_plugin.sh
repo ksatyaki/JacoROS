@@ -1,1 +1,0 @@
-rosrun moveit_ikfast create_ikfast_moveit_plugin.py jaco arm jaco_ikfast_plugin /home/ace/chittaranjan_ros/catkin_ws2/src/jaco_ikfast_plugin/src/jaco_arm_ikfast_solver.cpp
