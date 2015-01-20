@@ -4,8 +4,8 @@
 	<!-- param name="robot_description" command="cat $(find jaco_description)/urdf/gazebo/jaco.urdf"/ -->
    
     <!-- LOAD ROBOTERA_DORO WITH MODIFIED JACO! --> 
-    <param name="robot_description" command="$(find xacro)/xacro.py $(find doro_description)/urdf/DomesticRobotWithCover.urdf.xacro" />	
-	
+    <param name="robot_description" command="$(find xacro)/xacro.py $(find doro_description)/robots/DomesticRobotY3.urdf.xacro" />
+
 	<!-- starting the jaco arm with a namespace ns="jaco" -->
     <node ns="jaco" name="jaco_node" pkg="jaco" type="jaco" args='$(find jaco)/../CSharpWrapper/CSharpWrapper/bin/Debug/CSharpWrapper.dll'  output="screen"/>
 
