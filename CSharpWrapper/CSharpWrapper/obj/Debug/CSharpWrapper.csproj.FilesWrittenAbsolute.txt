@@ -10,3 +10,7 @@
 /home/ace/chittaranjan_ros/catkin_ws2/src/JacoROS/CSharpWrapper/CSharpWrapper/bin/Debug/CSharpWrapper.dll
 /home/ace/chittaranjan_ros/catkin_ws2/src/JacoROS/CSharpWrapper/CSharpWrapper/obj/Debug/CSharpWrapper.dll
 /home/ace/chittaranjan_ros/catkin_ws2/src/JacoROS/CSharpWrapper/CSharpWrapper/obj/Debug/CSharpWrapper.dll.mdb
+/localhome/demo/ros_workspace/catkin_ws2/src/JacoROS/CSharpWrapper/CSharpWrapper/bin/Debug/CSharpWrapper.dll.mdb
+/localhome/demo/ros_workspace/catkin_ws2/src/JacoROS/CSharpWrapper/CSharpWrapper/bin/Debug/CSharpWrapper.dll
+/localhome/demo/ros_workspace/catkin_ws2/src/JacoROS/CSharpWrapper/CSharpWrapper/obj/Debug/CSharpWrapper.dll
+/localhome/demo/ros_workspace/catkin_ws2/src/JacoROS/CSharpWrapper/CSharpWrapper/obj/Debug/CSharpWrapper.dll.mdb

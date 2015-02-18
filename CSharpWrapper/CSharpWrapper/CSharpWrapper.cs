@@ -166,7 +166,7 @@ namespace CSharpWrapper
 				m_Arm.DiagnosticManager.DataManager.DeleteErrorLog();
 	
 				// restore factory setting
-				// JacoFactoryRestore();
+				JacoFactoryRestore();
 				// set the arm flag to true 
 				m_IsEnabled = true;
 								
@@ -306,12 +306,21 @@ namespace CSharpWrapper
 						// Based on Observation of actual model	
 						// getting joints angles
 						// Normailising the joint angle (-180 to +180)
+						// REMOVING NORMALIZATION - CHITTARANJAN changed this.
+						m_State.shoulder_yaw.angle              = ((joint_info.Joint1) - 180.0) * Constants.DTR;
+                                                m_State.shoulder_pitch.angle    =  ((joint_info.Joint2) - 270.0) * Constants.DTR ;
+                                                m_State.elbow_pitch.angle               = ((joint_info.Joint3) - 90.0 ) * Constants.DTR;
+                                                m_State.elbow_roll.angle                = ((joint_info.Joint4) - 180.0) * Constants.DTR;
+                                                m_State.wrist_roll.angle                = ((joint_info.Joint5) - 180.0) * Constants.DTR;
+                                                m_State.hand_roll.angle                 = ((joint_info.Joint6) - 260.0) * Constants.DTR;						
+
+/*
 						m_State.shoulder_yaw.angle 		= Normalize( ((joint_info.Joint1) - 180.0) * Constants.DTR );
 						m_State.shoulder_pitch.angle 	= Normalize( ((joint_info.Joint2) - 270.0) * Constants.DTR );
 						m_State.elbow_pitch.angle 		= Normalize( ((joint_info.Joint3) - 90.0 ) * Constants.DTR );	
 						m_State.elbow_roll.angle 		= Normalize( ((joint_info.Joint4) - 180.0) * Constants.DTR );
 						m_State.wrist_roll.angle 		= Normalize( ((joint_info.Joint5) - 180.0) * Constants.DTR );
-						m_State.hand_roll.angle 		= Normalize( ((joint_info.Joint6) - 260.0) * Constants.DTR );					
+						m_State.hand_roll.angle 		= Normalize( ((joint_info.Joint6) - 260.0) * Constants.DTR );*/					
 					
 						// based on DH model provided by Kinova
 						/*m_State.shoulder_yaw.angle 		= (180.0 - (joint_info.Joint1)) * Constants.DTR;
@@ -883,8 +892,8 @@ namespace CSharpWrapper
 			{
 				if (m_Arm.JacoIsReady())
 				{
-					System.Console.WriteLine("Restoring Factory default settings ...");
-					m_Arm.DiagnosticManager.ToolManager.RestoreFactorySettings();				
+					System.Console.WriteLine("NOT Restoring Factory default settings ...");
+					//m_Arm.DiagnosticManager.ToolManager.RestoreFactorySettings();				
 				}
 			}
 			catch (Exception ex)
