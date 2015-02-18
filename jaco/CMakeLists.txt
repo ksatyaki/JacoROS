@@ -14,6 +14,7 @@ control_msgs
 # Load catkin and all dependencies required for this package
 find_package(catkin REQUIRED COMPONENTS roscpp urdf actionlib message_generation ${MESSAGE_DEPENDENCIES})
 
+find_package(Boost REQUIRED COMPONENTS thread)
 
 # Set the build type.  Options are:
 #  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage

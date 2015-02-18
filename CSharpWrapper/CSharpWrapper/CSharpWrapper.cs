@@ -166,7 +166,7 @@ namespace CSharpWrapper
 				m_Arm.DiagnosticManager.DataManager.DeleteErrorLog();
 	
 				// restore factory setting
-				JacoFactoryRestore();
+				// JacoFactoryRestore();
 				// set the arm flag to true 
 				m_IsEnabled = true;
 								
